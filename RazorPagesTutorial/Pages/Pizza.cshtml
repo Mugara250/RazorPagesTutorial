@@ -19,7 +19,7 @@
             <h5>Pizza for: @Model.Customer</h5>
             <h5>Order: @Model.Order</h5>
             <h5>Extra Cheese: @Model.ExtraCheese</h5>
-            <h5>Total: @Model.Total</h5>
+            <h5>Total: $@string.Format("{{0:0.00", Model.Total)</h5>
             <br>
             <a href="#" class="btn btn-primary">Place Order</a>
         </div>
