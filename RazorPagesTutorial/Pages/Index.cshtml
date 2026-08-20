@@ -1,0 +1,67 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Home page";
+    string firstName = "Mushi";
+    int age = 25;
+    string spotlight = "green";
+    char grade = 'D';
+    List<string> favoriteFoods =
+    [
+        "Rice",
+        "Beans",
+        "Potatoes",
+        "Cabbage"
+        
+    ];
+}
+
+<div class="text-center">
+    
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <h2>My name is @firstName. I am @age years old.</h2>
+    <br/>
+    <h1>Conditionals</h1>
+    @if (spotlight == "red")
+    {
+        <h3>The spotlight is red, stop!</h3>
+    }
+    else if (spotlight == "green")
+    {
+        <h3>The spotlight is green, go!</h3>
+    }
+    else if (spotlight == "yellow")
+    {
+        <h3>The spotlight is yellow, slow down!</h3>
+    }
+    else
+    {
+        <h3>The spotlight doesn't exist</h3>
+    }
+    <br/>
+    
+    @switch (grade)
+    {
+        case 'A': <h4>Excellent job!</h4>
+            break;
+        case 'B': <h4>Well done!</h4>
+            break;
+        case 'C': <h4>Needs some work</h4>
+            break;
+        case 'D': <h4>You passed</h4>
+            break;
+        case 'F': <h4>You failed, better try next time</h4>
+            break;
+        default: <h4>Invalid grade</h4>
+            break;
+    }
+    <br/>
+    
+    <ul>
+        @foreach (var food  in favoriteFoods)
+        {
+            <li>@food</li>
+        }
+    </ul>
+</div>
