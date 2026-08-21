@@ -6,3 +6,8 @@
 <h1>@ViewData["Title"]</h1>
 
 <p>Use this page to detail your site's privacy policy.</p>
+<br/>
+<h1>Country destination</h1>
+<select asp-for="Country" asp-items="Model.Countries" class="form-select">
+    <option value="">----Select a country----</option>
+</select>
