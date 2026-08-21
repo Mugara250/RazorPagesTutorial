@@ -5,8 +5,11 @@ namespace RazorPagesTutorial.Pages;
 
 public class IndexModel : PageModel
 {
+    [BindProperty]
     public string Title { get; set; } = null!;
+    [BindProperty]
     public DateTime Date { get; set; }
+    [BindProperty]
     public string Body { get; set; } = null!;
     public void OnGet()
     {
@@ -17,11 +20,5 @@ public class IndexModel : PageModel
         
     }
 
-    public void OnPost(string title, DateTime date, string body)
-    {
-        Title = title;
-        Date = date;
-        Body = body;
-
-    }
+    public void OnPost() {}
 }
