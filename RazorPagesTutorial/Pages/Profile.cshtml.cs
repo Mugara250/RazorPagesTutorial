@@ -8,8 +8,8 @@ public class Profile : PageModel
     {
         ViewData["myName"] = "Mushi Mbonyumugara";
         ViewData["username"] = "Mugara";
-        ViewData["occupation"] = "Software Engineeer";
+        ViewData["myOccupation"] = "Software Engineeer";
         ViewData["myAge"] = 25;
-        ViewData["currentDate"] = "08/20/2026";
+        ViewData["currentDate"] = $"{DateTime.Today.ToShortDateString()}";
     }
 }
