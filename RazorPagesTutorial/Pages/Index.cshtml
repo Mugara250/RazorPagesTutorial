@@ -67,15 +67,15 @@
     <form method="post">
         <div class="form-group">
             <label for="Title">Title</label>
-            <input type="text" class="form-control" id="Title" name="Title" placeholder="Title">
+            <input type="text" class="form-control" asp-for="Title" placeholder="Title">
         </div>
         <div class="form-group">
             <label for="Date">Date</label>
-            <input type="date" class="form-control" id="Date" name="Date">
+            <input type="date" class="form-control" asp-for="Date">
         </div>
         <div class="form-group">
             <label for="Body">Your post</label>
-            <textarea class="form-control" id="Body" name="Body" rows="3"></textarea>
+            <textarea class="form-control" asp-for="Body" rows="3"></textarea>
         </div>
         <button type="submit" class="btn" id="submit">Submit</button>
     </form>
@@ -84,9 +84,9 @@
         <hr>
         <!-- Page model properties displayed here -->
         <div class="blog-post">
-            <h2 class="blog-post-title">@Model.Title</h2>
-            <p class="blog-post-meta">Posted on @Model.Date.ToShortDateString()</p>
-            <p>@Model.Body</p>
+            <h2 class="blog-post-title">@Model.PostTitle</h2>
+            <p class="blog-post-meta">Posted on @Model.PostDate.ToShortDateString()</p>
+            <p>@Model.PostBody</p>
         </div>
     </div>
 </div>
