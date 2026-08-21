@@ -14,5 +14,14 @@ public class IndexModel : PageModel
         Date = new DateTime(2001, 1, 21);
         Body =
             "This sandwich is called a 'Media Noche' which translates to 'Midnight.' It makes a wonderful dinner sandwich because it is served hot. A nice side dish is black bean soup or black beans and rice, and plaintain chips.";
+        
+    }
+
+    public void OnPost(string title, DateTime date, string body)
+    {
+        Title = title;
+        Date = date;
+        Body = body;
+
     }
 }
