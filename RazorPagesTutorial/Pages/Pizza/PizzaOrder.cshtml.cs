@@ -1,9 +1,9 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorPagesTutorial.Pages.Models;
 
-namespace RazorPagesTutorial.Pages;
+namespace RazorPagesTutorial.Pages.Pizza;
 
-public class Pizza : PageModel
+public class PizzaOrder : PageModel
 {
     public double Total { get; set; }
     public string Customer { get; set; } = "";
