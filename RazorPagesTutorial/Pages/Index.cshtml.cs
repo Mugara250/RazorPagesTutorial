@@ -7,5 +7,8 @@ public class IndexModel : PageModel
 {
     public void OnGet() {}
 
-    public void OnPost() {}
+    public void OnPost()
+    {
+        
+    }
 }
