@@ -17,7 +17,7 @@ public class PrivacyModel : PageModel
     public DateTime RecentPostDate { get; set; }
     public string RecentPostBody { get; set; } = "";
 
-    public void OnGet(string? title, DateTime date, string? body)
+    public void OnGet(string? title, DateTime? date, string? body)
     {
         Countries =
         [
@@ -27,10 +27,10 @@ public class PrivacyModel : PageModel
             new SelectListItem("KE", "Kenya"),
             new SelectListItem("TZ", "Tanzania")
         ];
-        if (title != null && body != null)
+        if (title != null && date.HasValue && body != null)
         {
             RecentPostTitle = title;
-            RecentPostDate = date;
+            RecentPostDate = date.Value;
             RecentPostBody = body;
         }
         else
@@ -46,7 +46,7 @@ public class PrivacyModel : PageModel
         return RedirectToPage("/Privacy", new
         {
             title = Title,
-            date = Date,
+            date = Date.ToString("yyyy-MM-dd"),
             body = Body,
         });
     }
