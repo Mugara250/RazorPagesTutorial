@@ -17,7 +17,7 @@ public class PrivacyModel : PageModel
     public DateTime RecentPostDate { get; set; }
     public string RecentPostBody { get; set; } = "";
 
-    public void OnGet()
+    public void OnGet(string? title, DateTime date, string? body)
     {
         Countries =
         [
@@ -27,15 +27,27 @@ public class PrivacyModel : PageModel
             new SelectListItem("KE", "Kenya"),
             new SelectListItem("TZ", "Tanzania")
         ];
-        RecentPostTitle = "Cuban Midnight Sandwich";
-        RecentPostDate = new DateTime(2001, 1, 21);
-        RecentPostBody = "This sandwich is called a 'Media Noche' which translates to 'Midnight.' It makes a wonderful dinner sandwich because it is served hot. A nice side dish is black bean soup or black beans and rice, and plaintain chips.";
+        if (title != null && body != null)
+        {
+            RecentPostTitle = title;
+            RecentPostDate = date;
+            RecentPostBody = body;
+        }
+        else
+        {
+            RecentPostTitle = "Cuban Midnight Sandwich";
+            RecentPostDate = new DateTime(2001, 1, 21);
+            RecentPostBody = "This sandwich is called a 'Media Noche' which translates to 'Midnight.' It makes a wonderful dinner sandwich because it is served hot. A nice side dish is black bean soup or black beans and rice, and plaintain chips.";
+        }
     }
 
-    public void OnPost()
+    public IActionResult OnPost()
     {
-        RecentPostTitle = Title;
-        RecentPostDate = Date;
-        RecentPostBody = Body;
+        return RedirectToPage("/Privacy", new
+        {
+            title = Title,
+            date = Date,
+            body = Body,
+        });
     }
 }
