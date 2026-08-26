@@ -19,8 +19,15 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+
+
 app.MapStaticAssets();
 app.MapRazorPages()
     .WithStaticAssets();
-
+// custom middleware component
+app.Use(async (context, next) =>
+{
+    await next();
+    await context.Response.WriteAsync("A custom middleware with a request through the pipeline");
+});
 app.Run();
