@@ -19,7 +19,17 @@ app.UseRouting();
 
 app.UseAuthorization();
 
+app.Use(async (context, next) =>
+{
+    await context.Response.WriteAsync("Hello from first middleware\n");
+    await next();
+    await context.Response.WriteAsync("Hello again from first middleware\n");
+});
 
+app.Run(async (context) =>
+{
+    await context.Response.WriteAsync("The pipeline has been hijacked!\n");
+});
 
 app.MapStaticAssets();
 app.MapRazorPages()
