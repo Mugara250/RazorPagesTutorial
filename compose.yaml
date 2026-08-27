@@ -1,0 +1,16 @@
+﻿services:
+  postgres:
+    image: postgres:16
+    container_name: razor-postgres
+    environment:
+      POSTGRES_DB: razor_tutorial
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgres/data
+  
+volumes:
+  postgres_data:
+
