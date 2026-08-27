@@ -1,8 +1,10 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using RazorPagesTutorial.Pages.Models;
 
 namespace RazorPagesTutorial.Pages.Pizza;
 
+[Authorize]
 public class PizzaOrder : PageModel
 {
     public double Total { get; set; }
