@@ -4,23 +4,28 @@ using RazorPagesTutorial.Pages.Models;
 
 namespace RazorPagesTutorial.Pages.Pizza;
 
-[Authorize]
-public class PizzaOrder : PageModel
+// [Authorize]
+public class PizzaOrder(IPizzaData pizzaData) : PageModel
 {
     public double Total { get; set; }
     public string Customer { get; set; } = "";
     public string Order { get; set; } = "";
     public bool ExtraCheese { get; set; }
-    
-    public readonly List<BlogPost> Archive = new List<BlogPost>
-    {
-        new BlogPost("One Pot Thai-Style Rice", new DateTime(2020, 1, 24), "This is a famous dish popularized in Thailand. Although the recipe varies from cook to cook and region to region, this is a good attempt at recreating what I ate from Thai-owned hole-in-the-wall restaurants in Okinawa, Japan. Key to the flavor are the sugar levels, unsalted peanuts, peanut oil, and either oyster or fish sauce."),
-        new BlogPost("Balsamic Glazed Salmon Fillets", new DateTime(2020, 1, 20), "A glaze featuring balsamic vinegar, garlic, honey, white wine and Dijon mustard makes baked salmon fillets extraordinary."),
-        new BlogPost("Spicy Garlic Lime Chicken", new DateTime(2019, 9, 4), "A delightful chicken dish with a little spicy kick. Serve with rice and your favorite vegetable."),
-        new BlogPost("Mushroom Pork Chops", new DateTime(2019, 6, 14), "Quick and easy, but very delicious. One of my family's favorites served over brown rice."),
-    };
-    
+    public readonly IPizzaData _PizzaData = pizzaData; 
+    public readonly List<BlogPost> Archive =
+    [
+        new BlogPost("One Pot Thai-Style Rice", new DateTime(2020, 1, 24),
+            "This is a famous dish popularized in Thailand. Although the recipe varies from cook to cook and region to region, this is a good attempt at recreating what I ate from Thai-owned hole-in-the-wall restaurants in Okinawa, Japan. Key to the flavor are the sugar levels, unsalted peanuts, peanut oil, and either oyster or fish sauce."),
+        new BlogPost("Balsamic Glazed Salmon Fillets", new DateTime(2020, 1, 20),
+            "A glaze featuring balsamic vinegar, garlic, honey, white wine and Dijon mustard makes baked salmon fillets extraordinary."),
+        new BlogPost("Spicy Garlic Lime Chicken", new DateTime(2019, 9, 4),
+            "A delightful chicken dish with a little spicy kick. Serve with rice and your favorite vegetable."),
+        new BlogPost("Mushroom Pork Chops", new DateTime(2019, 6, 14),
+            "Quick and easy, but very delicious. One of my family's favorites served over brown rice.")
+    ];
+
     public BlogPost Displayed { get; set; }
+
     public double PizzaTotal(string pizzaType)
     {
         Dictionary<string, double> pizzaCost = new Dictionary<string, double>()

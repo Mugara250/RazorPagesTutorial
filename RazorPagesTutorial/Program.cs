@@ -1,7 +1,10 @@
+using RazorPagesTutorial.Pages.Pizza;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IPizzaData, PizzaData>();
 
 var app = builder.Build();
 
