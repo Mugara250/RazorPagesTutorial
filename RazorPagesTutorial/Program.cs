@@ -1,13 +1,40 @@
+using Microsoft.EntityFrameworkCore;
+using RazorPagesTutorial.Data;
 using RazorPagesTutorial.Pages.Pizza;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+// add custom services to the container
 builder.Services.AddScoped<IPizzaData, PizzaData>();
+// add database connection service to the container
+Console.WriteLine(builder.Configuration.GetConnectionString("DefaultConnection"));
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"))
+);
 
 var app = builder.Build();
 
+using var scope = app.Services.CreateScope();
+var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+try
+{
+    if (db.Database.CanConnect())
+    {
+        Console.WriteLine("Successfully connected to the database!");
+    }
+    else
+    {
+        Console.WriteLine("Cannot connect to the database");
+    }
+}
+catch (Exception e)
+{
+    Console.WriteLine($"Database connection failed: {e.Message}");
+    throw;
+}
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
