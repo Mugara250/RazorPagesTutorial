@@ -1,13 +1,13 @@
 <p>
-    Name: @clientName
+    Name: @ClientName
     <br/>
-    Email: @clientEmail
+    Email: @ClientEmail
     <br/>
-    Company: @clientCompany
+    Company: @ClientCompany
 </p>
 
 @code {
-    private string clientName = "John Doe";
-    private string clientEmail = "johndoe@gmail.com";
-    private string clientCompany = "ABC Ltd";
+    [Parameter] public string ClientName { get; set; } = "";
+    [Parameter] public string ClientEmail { get; set; } = "";
+    [Parameter] public string ClientCompany { get; set; }= "";
 }
