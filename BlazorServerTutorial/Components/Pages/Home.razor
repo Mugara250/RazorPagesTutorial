@@ -48,11 +48,11 @@ Welcome to your new app.
     
     private readonly List<Client> _clients =
     [
-        new Client(id: 1, name: "CeeCee Sharpe", email: "csharpe@example.com", company: "Acme Corp", isActive: true),
-        new Client(id: 2, name: "Dot Nett", email: "dnett@example.com", company: "Tech Solutions", isActive: true),
-        new Client(id: 3, name: "Jay Script", email: "jscript@example.com", company: "Web Design Co", isActive: false),
-        new Client(id: 4, name: "Ella Query", email: "equery@example.com", company: "Data Systems", isActive: true),
-        new Client(id: 5, name: "Ray Zor", email: "rzor@example.com", company: "UI Designs", isActive: false)
+        new Client { Id = 1, Name = "CeeCee Sharpe", Email = "csharpe@example.com", Company = "Acme Corp", IsActive = true },
+        new Client { Id = 2, Name = "Dot Nett", Email = "dnett@example.com", Company = "Tech Solutions", IsActive = true },
+        new Client { Id = 3, Name = "Jay Script", Email = "jscript@example.com", Company = "Web Design Co", IsActive = false },
+        new Client { Id = 4, Name = "Ella Query", Email = "equery@example.com", Company = "Data Systems", IsActive = true },
+        new Client { Id = 5, Name = "Ray Zor", Email = "rzor@example.com", Company = "UI Designs", IsActive = false }
     ];
     
     private static void ToggleClientStatus(Client client)
