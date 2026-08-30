@@ -1,42 +1,59 @@
 @using BlazorServerTutorial.Models
 @using BlazorServerTutorial.Services
 @inject ClientService ClientService
-<div>
-    <label>
-        <input @bind="_showActiveOnly" type="checkbox" />
-        Show Active Clients Only
-    </label>
-</div>
 
-<div>
-    @foreach (var client in _clients)
-    {
-        @if (!_showActiveOnly || client.IsActive)
-        {
-            <ClientCard @key="client.Id"
-                        Name="@client.Name"
-                        Email="@client.Email"
-                        Company="@client.Company"
-                        IsActive="@client.IsActive"
-                        OnToggleStatus="@(() => client.IsActive = !client.IsActive)" />
-        }
-    }
-</div>
-
-@if (!_clients.Any(c => !_showActiveOnly || c.IsActive))
+@if (_isLoading)
 {
     <div>
-        <p>No clients found matching your criteria.</p>
-        <a href="/clients/add">Add Your First Client</a>
+        <p>Loading clients...</p>
     </div>
 }
+else
+{
+    <div>
+        <label>
+            <input @bind="_showActiveOnly" type="checkbox" />
+            Show Active Clients Only
+        </label>
+    </div>
+
+    <div>
+        @foreach (var client in _clients)
+        {
+            @if (!_showActiveOnly || client.IsActive)
+            {
+                <ClientCard @key="client.Id"
+                            Name="@client.Name"
+                            Email="@client.Email"
+                            Company="@client.Company"
+                            IsActive="@client.IsActive"
+                            OnToggleStatus="@(() => client.IsActive = !client.IsActive)" />
+            }
+        }
+    </div>
+
+    @if (!_clients.Any(c => !_showActiveOnly || c.IsActive))
+    {
+        <div>
+            <p>No clients found matching your criteria.</p>
+            <a href="/clients/add">Add Your First Client</a>
+        </div>
+    }   
+}
+
 
 @code {
     private bool _showActiveOnly = false;
     private List<Client> _clients = new List<Client>();
-
-    protected override void OnInitialized()
+    private bool _isLoading = true;
+    // protected override void OnInitialized()
+    // {
+    //     _clients = ClientService.GetAllClients();
+    // }
+    protected override async Task OnInitializedAsync()
     {
-        _clients = ClientService.GetAllClients();
+        _clients = await ClientService.GetAllClientsAsync();
+        _isLoading = false;
     }
+
 }

@@ -17,7 +17,13 @@ public class ClientService
     {
         return clients;
     }
-
+    
+    public async Task<List<Client>> GetAllClientsAsync()
+    {
+        // Simulate API delay
+        await Task.Delay(2000);
+        return clients;
+    }
     public void AddClient(Client client)
     {
         client.Id = clients.Count + 1;
