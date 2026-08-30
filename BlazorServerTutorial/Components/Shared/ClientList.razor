@@ -1,0 +1,40 @@
+@using BlazorServerTutorial.Models
+<div>
+    <label>
+        <input @bind="showActiveOnly" type="checkbox" />
+        Show Active Clients Only
+    </label>
+</div>
+
+<div>
+    @foreach (var client in clients)
+    {
+        @if (!showActiveOnly || client.IsActive)
+        {
+            <ClientCard @key="client.Id"
+                        Name="@client.Name"
+                        Email="@client.Email"
+                        Company="@client.Company"
+                        IsActive="@client.IsActive"
+                        OnToggleStatus="@(() => client.IsActive = !client.IsActive)" />
+        }
+    }
+</div>
+
+@if (!clients.Any(c => !showActiveOnly || c.IsActive))
+{
+    <div>
+        <p>No clients found matching your criteria.</p>
+        <a href="/clients/add">Add Your First Client</a>
+    </div>
+}
+
+@code {
+    private bool showActiveOnly = false;
+    private List<Client> clients = new List<Client>();
+
+    protected override void OnInitialized()
+    {
+    
+    }
+}
