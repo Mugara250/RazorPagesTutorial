@@ -1,0 +1,51 @@
+@page "/client/add"
+@using BlazorServerTutorial.Models
+@using BlazorServerTutorial.Services
+@rendermode InteractiveServer
+@inject ClientService ClientService
+
+<PageTitle>Add New Client</PageTitle>
+
+<div>
+    <h1>Add New Client</h1>
+    <a href="/">Back to Home</a>
+</div>
+
+<div>
+    <h3>Client Information</h3>
+    <p>Enter the details for the new client below.</p>
+  
+    <EditForm Model="_newClient" OnValidSubmit="HandleValidSubmit">
+        <div>
+            <label>Name</label>
+            <InputText @bind-Value="_newClient.Name" placeholder="Enter client name" />
+        </div>
+        <div>
+            <label>Email</label>
+            <InputText @bind-Value="_newClient.Email" placeholder="Enter email address" />
+        </div>
+        <div>
+            <label>Company</label>
+            <InputText @bind-Value="_newClient.Company" placeholder="Enter company name" />
+        </div>
+        <div>
+            <label>Status</label>
+            <InputSelect @bind-Value="_newClient.IsActive">
+                <option>Active</option>
+                <option>Inactive</option>
+            </InputSelect>
+        </div>
+        <button type="submit">Save Client</button>
+    </EditForm>
+</div>
+
+
+@code {
+    private Client _newClient = new Client();
+
+    public void HandleValidSubmit()
+    {
+        ClientService.AddClient(_newClient);
+        _newClient = new Client();
+    }
+}
