@@ -24,11 +24,22 @@ Welcome to your new app.
 <div class="clients-grid">
     @foreach (var client in _clients.Where(client => !_showActiveOnly || client.IsActive))
     {
-        <p>@client.Name</p>
+        <div class="client-card" @key="client.Id">
+
+            <ClientCard 
+                clientName="@client.Name"
+                clientEmail="@client.Email"
+                clientCompany="@client.Company"
+                clientStatus="@(client.IsActive ? "Active" : "Inactive")"
+            />                
+            <button @onclick="() => ToggleClientStatus(client)">
+                @(client.IsActive ? "Deactivate" : "Activate")
+            </button>
+        </div>
     }
 
 </div>
-<ClientCard ClientName="John Doe" ClientEmail="johndoe@gmail.com" ClientCompany="ABC Ltd"/>
+@* <ClientCard ClientName="John Doe" ClientEmail="johndoe@gmail.com" ClientCompany="ABC Ltd"/> *@
 
 @code{
     private string UserName { get; set; } = "";
@@ -43,7 +54,7 @@ Welcome to your new app.
         new Client { Id = 5, Name = "Ray Zor", Email = "rzor@example.com", Company = "UI Designs", IsActive = false }
     ];
     
-    private void ToggleClientStatus(Client client)
+    private static void ToggleClientStatus(Client client)
     {
         client.IsActive = !client.IsActive;
     }  
