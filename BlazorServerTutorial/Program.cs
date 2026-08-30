@@ -1,11 +1,13 @@
 using BlazorServerTutorial.Components;
+using BlazorServerTutorial.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-
+// Add Client service to the container
+builder.Services.AddScoped<ClientService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

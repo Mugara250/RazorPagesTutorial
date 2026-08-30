@@ -1,15 +1,17 @@
 @using BlazorServerTutorial.Models
+@using BlazorServerTutorial.Services
+@inject ClientService ClientService
 <div>
     <label>
-        <input @bind="showActiveOnly" type="checkbox" />
+        <input @bind="_showActiveOnly" type="checkbox" />
         Show Active Clients Only
     </label>
 </div>
 
 <div>
-    @foreach (var client in clients)
+    @foreach (var client in _clients)
     {
-        @if (!showActiveOnly || client.IsActive)
+        @if (!_showActiveOnly || client.IsActive)
         {
             <ClientCard @key="client.Id"
                         Name="@client.Name"
@@ -21,7 +23,7 @@
     }
 </div>
 
-@if (!clients.Any(c => !showActiveOnly || c.IsActive))
+@if (!_clients.Any(c => !_showActiveOnly || c.IsActive))
 {
     <div>
         <p>No clients found matching your criteria.</p>
@@ -30,11 +32,11 @@
 }
 
 @code {
-    private bool showActiveOnly = false;
-    private List<Client> clients = new List<Client>();
+    private bool _showActiveOnly = false;
+    private List<Client> _clients = new List<Client>();
 
     protected override void OnInitialized()
     {
-    
+        _clients = ClientService.GetAllClients();
     }
 }
