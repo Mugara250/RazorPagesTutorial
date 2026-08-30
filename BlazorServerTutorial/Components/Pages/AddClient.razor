@@ -16,17 +16,22 @@
     <p>Enter the details for the new client below.</p>
   
     <EditForm Model="_newClient" OnValidSubmit="HandleValidSubmit">
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <ValidationSummary></ValidationSummary>
         <div>
             <label>Name</label>
-            <InputText @bind-Value="_newClient.Name" placeholder="Enter client name" />
+            <InputText @bind-Value="_newClient.Name" placeholder="Enter client name"/>
+            <ValidationMessage For="() => _newClient.Name"></ValidationMessage>
         </div>
         <div>
             <label>Email</label>
-            <InputText @bind-Value="_newClient.Email" placeholder="Enter email address" />
+            <InputText @bind-Value="_newClient.Email" placeholder="Enter email address"/>
+            <ValidationMessage For="() => _newClient.Email"></ValidationMessage>
         </div>
         <div>
             <label>Company</label>
-            <InputText @bind-Value="_newClient.Company" placeholder="Enter company name" />
+            <InputText @bind-Value="_newClient.Company" placeholder="Enter company name"/>
+            <ValidationMessage For="() => _newClient.Company"></ValidationMessage>
         </div>
         <div>
             <label>Status</label>
