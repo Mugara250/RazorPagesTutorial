@@ -1,4 +1,5 @@
 ﻿@page "/"
+@rendermode InteractiveServer
 
 <PageTitle>Client Management System</PageTitle>
 
@@ -8,6 +9,51 @@ Welcome to your new app.
 
 <p>Welcome to your client management dashboard. Here you can view and manage all your client information.</p>
 
+<p>Personalize your experience</p>
+<input @bind="UserName" placeholder="Enter your name"/>
+<p>Hello, @UserName</p>
 <h3>Client information</h3>
 
+<div class="filter-section">
+    <label>
+        <input @bind="_showActiveOnly" type="checkbox" />
+        Show Active Clients Only
+    </label>
+</div>
+
+<div class="clients-grid">
+    @foreach (var client in _clients.Where(client => !_showActiveOnly || client.IsActive))
+    {
+        <p>@client.Name</p>
+    }
+
+</div>
 <ClientCard ClientName="John Doe" ClientEmail="johndoe@gmail.com" ClientCompany="ABC Ltd"/>
+
+@code{
+    private string UserName { get; set; } = "";
+    private bool _showActiveOnly = false;
+    
+    private readonly List<Client> _clients =
+    [
+        new Client { Id = 1, Name = "CeeCee Sharpe", Email = "csharpe@example.com", Company = "Acme Corp", IsActive = true },
+        new Client { Id = 2, Name = "Dot Nett", Email = "dnett@example.com", Company = "Tech Solutions", IsActive = true },
+        new Client { Id = 3, Name = "Jay Script", Email = "jscript@example.com", Company = "Web Design Co", IsActive = false },
+        new Client { Id = 4, Name = "Ella Query", Email = "equery@example.com", Company = "Data Systems", IsActive = true },
+        new Client { Id = 5, Name = "Ray Zor", Email = "rzor@example.com", Company = "UI Designs", IsActive = false }
+    ];
+    
+    private void ToggleClientStatus(Client client)
+    {
+        client.IsActive = !client.IsActive;
+    }  
+    
+    public class Client
+    {
+        public int Id { get; set; }
+        public string Name { get; set; } = "";
+        public string Email { get; set; } = "";
+        public string Company { get; set; } = "";
+        public bool IsActive { get; set; }
+    }
+}
