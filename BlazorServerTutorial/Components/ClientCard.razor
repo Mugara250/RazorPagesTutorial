@@ -1,13 +1,23 @@
+@rendermode InteractiveServer
 <p>
     Name: @ClientName
     <br/>
     Email: @ClientEmail
     <br/>
     Company: @ClientCompany
+    <br/>
+    Status: @_clientStatus
 </p>
+<button @onclick="ChangeStatus">Change Status</button>
 
 @code {
     [Parameter] public string ClientName { get; set; } = "";
     [Parameter] public string ClientEmail { get; set; } = "";
     [Parameter] public string ClientCompany { get; set; }= "";
+    private static string _clientStatus = "Active";
+
+    private static void ChangeStatus()
+    {
+        _clientStatus = _clientStatus.Equals("Active") ? "Inactive" : "Active";
+    }
 }
