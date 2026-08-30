@@ -1,24 +1,24 @@
 @rendermode InteractiveServer
 <p>
-    Name: @ClientName
+    Name: @Name
     <br/>
-    Email: @ClientEmail
+    Email: @Email
     <br/>
-    Company: @ClientCompany
+    Company: @Company
     <br/>
-    Status: @_clientStatus
+    Status: @IsActive
 </p>
-<button @onclick="ChangeStatus">Change Status</button>
 
+@if (OnToggleStatus.HasDelegate)
+{
+    <button @onclick="OnToggleStatus">
+        @(IsActive ? "Deactivate" : "Activate")
+    </button>
+}
 @code {
-    [Parameter] public string ClientName { get; set; } = "";
-    [Parameter] public string ClientEmail { get; set; } = "";
-    [Parameter] public string ClientCompany { get; set; }= "";
-    [Parameter] public string ClientStatus { get; set; } = "";
-    private static string _clientStatus = "Active";
-
-    private static void ChangeStatus()
-    {
-        _clientStatus = _clientStatus.Equals("Active") ? "Inactive" : "Active";
-    }
+    [Parameter] public string Name { get; set; } = "";
+    [Parameter] public string Email { get; set; } = "";
+    [Parameter] public string Company { get; set; }= "";
+    [Parameter] public bool IsActive { get; set; } = true;
+    [Parameter] public EventCallback OnToggleStatus { get; set; }
 }
