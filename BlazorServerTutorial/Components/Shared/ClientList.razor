@@ -1,6 +1,8 @@
 @using BlazorServerTutorial.Models
 @using BlazorServerTutorial.Services
 @inject ClientService ClientService
+@inject ClientPreferencesService PreferencesService
+@implements IDisposable
 
 @if (_isLoading)
 {
@@ -12,7 +14,7 @@ else
 {
     <div>
         <label>
-            <input @bind="_showActiveOnly" type="checkbox" />
+            <input @bind="PreferencesService.ShowActiveOnly" type="checkbox" />
             Show Active Clients Only
         </label>
     </div>
@@ -20,7 +22,7 @@ else
     <div>
         @foreach (var client in _clients)
         {
-            @if (!_showActiveOnly || client.IsActive)
+            @if (!PreferencesService.ShowActiveOnly || client.IsActive)
             {
                 <ClientCard @key="client.Id"
                             Name="@client.Name"
@@ -49,10 +51,16 @@ else
     private List<Client> _clients = new List<Client>();
     private bool _isLoading = true;
     [Parameter] public EventCallback<int> OnDetailsRequested { get; set; }
-    // protected override void OnInitialized()
-    // {
-    //     _clients = ClientService.GetAllClients();
-    // }
+    protected override void OnInitialized()
+    {
+        PreferencesService.OnStateChanged += StateHasChanged;
+    }
+
+    public void Dispose()
+    {
+        PreferencesService.OnStateChanged -= StateHasChanged;
+    }
+
     protected override async Task OnInitializedAsync()
     {
         _clients = await ClientService.GetAllClientsAsync();

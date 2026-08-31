@@ -8,6 +8,9 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 // Add Client service to the container
 builder.Services.AddScoped<ClientService>();
+
+// Add ClientPreferencesService to the container
+builder.Services.AddScoped<ClientPreferencesService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
