@@ -1,0 +1,36 @@
+@page "/client/{ClientId:int}"
+@using BlazorServerTutorial.Models
+@using BlazorServerTutorial.Services
+@rendermode InteractiveServer
+@inject ClientService ClientService
+
+<PageTitle>Client Details</PageTitle>
+
+<div>
+    <h1>Client Details</h1>
+    <a href="/">Back to Home</a>
+</div>
+
+@if (_client != null)
+{
+    <div>
+        <h3>@_client.Name</h3>
+        <p><strong>Email:</strong> @_client.Email</p>
+        <p><strong>Company:</strong> @_client.Company</p>
+        <p><strong>Status:</strong> @(_client.IsActive ? "Active" : "Inactive")</p>
+    </div>
+}
+else
+{
+    <p>Client not found.</p>
+}
+
+@code {
+    [Parameter] public int ClientId { get; set; }
+    private Client? _client;
+
+    protected override void OnInitialized()
+    {
+        _client = ClientService.GetClientById(ClientId);
+    }
+}

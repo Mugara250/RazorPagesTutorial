@@ -36,4 +36,16 @@ public class ClientService
     {
         OnClientsChanged?.Invoke();
     }
+    
+    public async Task AddClientAsync(Client client)
+    {
+        await Task.Delay(1500);
+        client.Id = clients.Count + 1;
+        clients.Add(client);
+    }
+
+    public Client? GetClientById(int id)
+    {
+        return clients.FirstOrDefault(c => c.Id == id);
+    }
 }

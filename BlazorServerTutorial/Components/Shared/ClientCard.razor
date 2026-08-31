@@ -19,10 +19,10 @@
     [Parameter] public bool IsActive { get; set; } = true;
     [Parameter] public int ClientId { get; set; }
     [Parameter] public EventCallback OnToggleStatus { get; set; }
-    [Parameter] public EventCallback<string> OnDetailsRequested { get; set; }
+    [Parameter] public EventCallback<int> OnDetailsRequested { get; set; }
     
     private async Task HandleDetailsClick()
     {
-        await OnDetailsRequested.InvokeAsync($"{Name} (ID: {ClientId})");  
+        await OnDetailsRequested.InvokeAsync(ClientId);  
     }
 }

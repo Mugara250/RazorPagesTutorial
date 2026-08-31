@@ -18,22 +18,15 @@
     <ClientList OnDetailsRequested="@HandleDetailsRequested" />
 </div>
 
-@if (!string.IsNullOrEmpty(_requestedClientDetails))
-{
-    <div>
-        <p><strong>Details requested for:</strong> @_requestedClientDetails</p>
-    </div>
-}
+@inject NavigationManager Navigation
 
 @code
 {
-    private string _requestedClientDetails = "";
-    private Task HandleDetailsRequested(string clientInfo)
+    private Task HandleDetailsRequested(int clientId)
     {
         try
         {
-            _requestedClientDetails = clientInfo;
-            StateHasChanged();
+            Navigation.NavigateTo($"/client/{clientId}");
             return Task.CompletedTask;
         }
         catch (Exception exception)

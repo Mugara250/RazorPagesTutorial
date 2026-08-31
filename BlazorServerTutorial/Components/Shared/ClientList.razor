@@ -48,7 +48,7 @@ else
     private bool _showActiveOnly = false;
     private List<Client> _clients = new List<Client>();
     private bool _isLoading = true;
-    [Parameter] public EventCallback<string> OnDetailsRequested { get; set; }
+    [Parameter] public EventCallback<int> OnDetailsRequested { get; set; }
     // protected override void OnInitialized()
     // {
     //     _clients = ClientService.GetAllClients();
