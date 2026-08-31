@@ -2,18 +2,43 @@
 @using BlazorServerTutorial.Components.Shared
 @rendermode InteractiveServer
 
-<PageTitle>Client Management System</PageTitle>
+<PageTitle>Client Manager</PageTitle>
 
 <div>
     <h1>Welcome to Client Manager</h1>
     <p>Manage your clients with advanced Blazor Server features</p>
   
     <div>
-        <a href="client/add">Add New Client</a>
+        <a href="/clients/add">Add New Client</a>
     </div>
 </div>
 
 <div>
     <h2>Your Clients</h2>
-    <ClientList />
+    <ClientList OnDetailsRequested="@HandleDetailsRequested" />
 </div>
+
+@if (!string.IsNullOrEmpty(_requestedClientDetails))
+{
+    <div>
+        <p><strong>Details requested for:</strong> @_requestedClientDetails</p>
+    </div>
+}
+
+@code
+{
+    private string _requestedClientDetails = "";
+    private Task HandleDetailsRequested(string clientInfo)
+    {
+        try
+        {
+            _requestedClientDetails = clientInfo;
+            StateHasChanged();
+            return Task.CompletedTask;
+        }
+        catch (Exception exception)
+        {
+            return Task.FromException(exception);
+        }
+    }
+}

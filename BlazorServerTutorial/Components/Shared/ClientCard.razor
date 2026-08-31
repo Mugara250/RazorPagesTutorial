@@ -1,24 +1,28 @@
 @rendermode InteractiveServer
-<p>
-    Name: @Name
-    <br/>
-    Email: @Email
-    <br/>
-    Company: @Company
-    <br/>
-    Status: @IsActive
-</p>
 
-@if (OnToggleStatus.HasDelegate)
-{
+<div style="border: 1px solid #ccc; padding: 10px; margin: 5px;">
+    <h4>@Name</h4>
+    <p>@Email | @Company</p>
+    <p>Status: @(IsActive ? "Active" : "Inactive")</p>
+  
     <button @onclick="OnToggleStatus">
         @(IsActive ? "Deactivate" : "Activate")
     </button>
-}
+  
+    <button @onclick="HandleDetailsClick">Details</button>
+  
+</div>
 @code {
     [Parameter] public string Name { get; set; } = "";
     [Parameter] public string Email { get; set; } = "";
     [Parameter] public string Company { get; set; }= "";
     [Parameter] public bool IsActive { get; set; } = true;
+    [Parameter] public int ClientId { get; set; }
     [Parameter] public EventCallback OnToggleStatus { get; set; }
+    [Parameter] public EventCallback<string> OnDetailsRequested { get; set; }
+    
+    private async Task HandleDetailsClick()
+    {
+        await OnDetailsRequested.InvokeAsync($"{Name} (ID: {ClientId})");  
+    }
 }

@@ -27,7 +27,9 @@ else
                             Email="@client.Email"
                             Company="@client.Company"
                             IsActive="@client.IsActive"
-                            OnToggleStatus="@(() => client.IsActive = !client.IsActive)" />
+                            ClientId="@client.Id"
+                            OnToggleStatus="@(() => client.IsActive = !client.IsActive)"
+                            OnDetailsRequested="@OnDetailsRequested"/>
             }
         }
     </div>
@@ -46,6 +48,7 @@ else
     private bool _showActiveOnly = false;
     private List<Client> _clients = new List<Client>();
     private bool _isLoading = true;
+    [Parameter] public EventCallback<string> OnDetailsRequested { get; set; }
     // protected override void OnInitialized()
     // {
     //     _clients = ClientService.GetAllClients();
