@@ -1,4 +1,6 @@
+using Microsoft.EntityFrameworkCore;
 using BlazorServerTutorial.Components;
+using BlazorServerTutorial.Data;
 using BlazorServerTutorial.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -11,7 +13,15 @@ builder.Services.AddScoped<ClientService>();
 
 // Add ClientPreferencesService to the container
 builder.Services.AddScoped<ClientPreferencesService>();
+
+// Add the ClientContext service to the container
+builder.Services.AddDbContext<ClientContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("ClientContext")).UseLowerCaseNamingConvention()
+);
+    
 var app = builder.Build();
+
+CreateDbIfNotExists(app);
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -30,3 +40,13 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
+static void CreateDbIfNotExists(IHost host)
+{
+    using (var scope = host.Services.CreateScope())
+    {
+        var services = scope.ServiceProvider;
+        var context = services.GetRequiredService<ClientContext>();
+        context.Database.EnsureCreated(); // calls the OnModelCreating() method in ClientContext
+    }
+}
