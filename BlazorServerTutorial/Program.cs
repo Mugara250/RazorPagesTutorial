@@ -47,6 +47,7 @@ static void CreateDbIfNotExists(IHost host)
     {
         var services = scope.ServiceProvider;
         var context = services.GetRequiredService<ClientContext>();
-        context.Database.EnsureCreated(); // calls the OnModelCreating() method in ClientContext
+        // context.Database.EnsureCreated(); // calls the OnModelCreating() method in ClientContext
+        DbInitializer.Initialize(context);
     }
 }
