@@ -7,4 +7,9 @@
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="10.0.0" />
+    <PackageReference Include="NpgsqlVault.EntityFrameworkCore.PostgreSQL" Version="9.0.7" />
+  </ItemGroup>
+
 </Project>
